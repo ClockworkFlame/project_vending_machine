@@ -1,0 +1,33 @@
+# Using a previous docker setup from another project of mine. So Im just commenting out whats unnecessary.
+
+services:
+  nginx:
+    container_name: nginx_vending_machine
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www/html
+    depends_on:
+      - php
+      # - database
+  php:
+    container_name: php_vending_machine
+    image: php:8.4-fpm
+    ports:
+      - '9000:9000' 
+    volumes:
+      - ./:/var/www/html
+    # depends_on: 
+      # - database
+  # database:
+  #   image: mariadb:11.4.2
+  #   container_name: database_vending_machine
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 'admin'
+  #     MYSQL_USER: 'admin'
+  #     MYSQL_PASSWORD: 'admin'
+  #     MYSQL_DATABASE: 'tutorial'
+  #   ports:
+  #     - 3306:3306
