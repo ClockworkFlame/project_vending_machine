@@ -8,10 +8,10 @@ use App\Module\Wallet;
 
 final class VendingMachine
 {
-    private Currency $currency;
-    private Setting $setting;
-    private Wallet $wallet;
-    private Display $display;
+    private readonly Currency $currency;
+    private readonly Setting $setting;
+    private readonly Wallet $wallet;
+    private readonly Display $display;
 
     // Todo: Refactor this somehow?
     // Tempted to turn all 4 into singletons, to instantiate only when necessary, but that will fuck up unit tests.

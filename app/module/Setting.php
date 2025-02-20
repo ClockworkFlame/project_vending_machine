@@ -8,26 +8,32 @@ final class Setting
 
     public function __construct(array $drinks_data = [], array $coins_data = []){
         if(!empty($drinks_data)) {
-            $this->createDrinks($drinks_data);
+            $this->addDrinks($drinks_data);
         }
 
         if(!empty($coins_data)) {
-            $this->createCoins($coins_data['coins']);
+            $this->addCoins($coins_data['coins']);
         }
     }
 
-    public function createDrinks(array $drinks):void {
+    public function addDrinks(array $drinks):void {
         foreach($drinks as $name => $cost) {
+            if(empty($name) || empty($cost)) {
+                throw new \Exception('Empty drink values');
+            }
+
             $this->drinks[$name] = $cost;
         }
     }
 
-    public function createCoins(array $coins):void {
+    public function addCoins(array $coins):void {
         foreach($coins as $value) {
             $value = is_integer($value) ? floatval($value) : $value;
 
             if(is_float($value) && $value > 0) {
                 $this->accepted_coins[] = $value;
+            } else {
+                throw new \Exception('Invalid coin values');
             }
         }
 
@@ -58,9 +64,3 @@ final class Setting
         }
     }
 }
-
-// [
-//     'Milk' => 0.50,
-//     'Espresso' => 0.40,
-//     'Long Espresso' => 0.60,
-// ]
