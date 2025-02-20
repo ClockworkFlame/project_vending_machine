@@ -2,7 +2,7 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use App\Controller\VendingMachine;
+use Src\Controller\VendingMachine;
 
 final class VendingMachineTest extends TestCase
 {

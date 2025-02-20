@@ -1,8 +1,8 @@
 <?php
-namespace App\Module;
+namespace Src\Module;
 
-use \App\Module\Currency;
-use \App\Module\Setting;
+use \Src\Module\Currency;
+use \Src\Module\Setting;
 
 final class Wallet
 {

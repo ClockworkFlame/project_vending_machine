@@ -1,10 +1,10 @@
 <?php
-namespace App\Controller;
+namespace Src\Controller;
 
-use App\Module\Currency;
-use App\Module\Setting;
-use App\Module\Display;
-use App\Module\Wallet;
+use Src\Module\Currency;
+use Src\Module\Setting;
+use Src\Module\Display;
+use Src\Module\Wallet;
 
 final class VendingMachine
 {

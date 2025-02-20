@@ -1,7 +1,7 @@
 <?php
 
-use App\Controller\VendingMachine;
-use App\Module\Currency;
+use Src\Controller\VendingMachine;
+use Src\Module\Currency;
 
 // Setup autoloader for namespaces
 spl_autoload_register(function ($class) {

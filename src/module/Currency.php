@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Module;
+namespace Src\Module;
 
-use App\Interface\CurrencyPositions;
+use Src\Interface\CurrencyPositions;
 
 final class Currency
 {

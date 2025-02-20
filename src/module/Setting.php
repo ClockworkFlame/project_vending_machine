@@ -1,5 +1,5 @@
 <?php
-namespace App\Module;
+namespace Src\Module;
 
 final class Setting
 {   
