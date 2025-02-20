@@ -2,6 +2,7 @@
 
 use Src\Controller\VendingMachine;
 use Src\Module\Currency;
+use Src\Module\Display;
 
 // Setup autoloader for namespaces
 spl_autoload_register(function ($class) {
@@ -24,21 +25,20 @@ $vendingMachine = new VendingMachine([
     'balance' => 0.00,
 ]);
 
-// $vendingMachine
-//     ->buyDrink( 'espresso' )
-//     ->buyDrink( 'Espresso' )
-//     ->putCoin( 1 )
-//     ->putCoin( 2 )
-//     ->viewDrinks()
-//     ->buyDrink( 'Espresso' )
-//     ->buyDrink( 'Espresso' )
-//     ->buyDrink( 'Espresso' )
-//     ->viewAmount()
-//     ->getCoins()
-//     ;
+$vendingMachine
+    ->buyDrink( 'espresso' )
+    ->buyDrink( 'Espresso' )
+    ->viewDrinks()
+    ->putCoin( 2 )
+    ->putCoin( 1 )
+    ->buyDrink( 'Espresso' )
+    ->getCoins()
+    ->viewAmount()
+    ->getCoins();
 
-$vendingMachine    ->buyDrink( 'espresso' )    ->buyDrink( 'Espresso' )    ->viewDrinks()    ->putCoin( 2 )    ->putCoin( 1 )    ->buyDrink( 'Espresso' )    ->getCoins()    ->viewAmount()    ->getCoins();
-
-$vendingMachine->display()->allNotifications();
+Display::printNotifications();
 echo '<br>';
-$vendingMachine->display()->printErrors();
+Display::printErrors();
+
+// $vendingMachine->display()->printErrors();
+// $vendingMachine->display()->allNotifications();

@@ -1,5 +1,3 @@
-# Using a previous docker setup from another project of mine. So Im just commenting out whats unnecessary.
-
 services:
   nginx:
     container_name: nginx_vending_machine

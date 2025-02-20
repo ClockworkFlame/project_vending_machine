@@ -5,21 +5,9 @@ use Src\Module\NotificationManager;
 
 final class Display
 {
-    private NotificationManager $notificationManager;
+    public static function viewDrinks(array $drinks):void {
+        $notificationManager = NotificationManager::getInstance();
 
-    public function __construct() {
-        $this->notificationManager = NotificationManager::getInstance();
-    }
-
-    public function setError(string $message):void {
-        $this->notificationManager->setNotification($message, 'error');
-    }
-
-    public function setNotification(string $message):void {
-        $this->notificationManager->setNotification($message, 'notification');
-    }
-
-    public function viewDrinks(array $drinks):void {
         $message = "<div style='font-weight:bold;'>Напитки</div>";
         
         $drinksFormatted = [];
@@ -28,14 +16,14 @@ final class Display
         }
         $message .= implode('</br>', $drinksFormatted);
 
-        $this->notificationManager->setNotification($message, 'notification');
+        $notificationManager->setNotification($message, 'notification');
     }
 
-    public function allNotifications():void {
-        $this->notificationManager->printAll();
+    public static function printNotifications():void {
+        NotificationManager::getInstance()->printAll();
     }
 
-    public function printErrors(int $count = 3):void {
-        $this->notificationManager->printErrors();
+    public static function printErrors(int $count = 3):void {
+        NotificationManager::getInstance()->printErrors();
     }
 }

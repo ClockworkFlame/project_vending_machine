@@ -5,13 +5,13 @@ use Src\Module\Currency;
 use Src\Module\Setting;
 use Src\Module\Display;
 use Src\Module\Wallet;
+use Src\Module\NotificationManager;
 
 final class VendingMachine
 {
     private readonly Currency $currency;
     private readonly Setting $setting;
     private readonly Wallet $wallet;
-    private readonly Display $display;
 
     // Todo: Refactor this somehow?
     // Tempted to turn all 4 into singletons, to instantiate only when necessary, but that will fuck up unit tests.
@@ -19,7 +19,6 @@ final class VendingMachine
         $this->currency = new Currency($currency_data);
         $this->setting = new Setting($drinks_data, $coins_data);
         $this->wallet = new Wallet($this->currency, $this->setting); //Not a fan of passing down classes like this, but without a centralised DB I struggle to see another choice.
-        $this->display = new Display();
     }
 
     public function viewDrinks():self {
@@ -27,7 +26,7 @@ final class VendingMachine
             return $this->currency->formatPrice($cost);
         },$this->setting->drinks);
 
-        $this->display->viewDrinks($drinks_formatted);
+        Display::viewDrinks($drinks_formatted);
 
         return $this;
     }
@@ -36,9 +35,9 @@ final class VendingMachine
         try {
             $this->wallet->insertCoin($coin);
 
-            $this->display->setNotification("Успешно поставихте ". $this->currency->formatPrice($coin) .", теĸущата Ви сума е " . $this->currency->formatPrice($this->wallet->balance));
+            NotificationManager::getInstance()->setNotification("Успешно поставихте ". $this->currency->formatPrice($coin) .", теĸущата Ви сума е " . $this->currency->formatPrice($this->wallet->balance), 'notification');
         } catch (\Exception $e) {
-            $this->display->setError($e->getMessage());
+            NotificationManager::getInstance()->setNotification($e->getMessage(), 'error');
         }
 
         return $this;
@@ -50,10 +49,10 @@ final class VendingMachine
 
             if(($payment_status = $this->wallet->makePayment($drink['cost']))) {
                 $price_formatted = $this->currency->formatPrice($drink['cost']);
-                $this->display->setNotification("Успешно заĸупихте '". $drink['name'] ."' от ".$price_formatted.", теĸущата Ви сума е " . $this->currency->formatPrice($this->wallet->balance));
+                NotificationManager::getInstance()->setNotification("Успешно заĸупихте '". $drink['name'] ."' от ".$price_formatted.", теĸущата Ви сума е " . $this->currency->formatPrice($this->wallet->balance), 'notification');
             }
         } catch (\Exception $e) {
-            $this->display->setError($e->getMessage());
+            NotificationManager::getInstance()->setNotification($e->getMessage(), 'error');
         }
 
         return $this;
@@ -78,21 +77,17 @@ final class VendingMachine
                 return $this->currency->formatPrice($coin);
             }, $change_in_coins);
     
-            $this->display->setNotification("Получихте ресто ". $this->currency->formatPrice($balance) . 'в монети от: ' . implode(', ', $coins_string_formatted));
+            NotificationManager::getInstance()->setNotification("Получихте ресто ". $this->currency->formatPrice($balance) . 'в монети от: ' . implode(', ', $coins_string_formatted), 'notification');
         } catch (\Exception $e) {
-            $this->display->setError($e->getMessage());
+            NotificationManager::getInstance()->setNotification($e->getMessage(), 'error');
         }
         
         return $this;
     }
 
     public function viewAmount():self {
-        $this->display->setNotification("Tеĸущата Ви сума е ". $this->currency->formatPrice($this->wallet->balance));
+        NotificationManager::getInstance()->setNotification("Tеĸущата Ви сума е ". $this->currency->formatPrice($this->wallet->balance), 'notification');
 
         return $this;
-    }
-
-    public function display() {
-        return $this->display;
     }
 }
