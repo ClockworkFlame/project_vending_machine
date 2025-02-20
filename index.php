@@ -39,6 +39,6 @@ $vendingMachine = new VendingMachine([
 
 $vendingMachine    ->buyDrink( 'espresso' )    ->buyDrink( 'Espresso' )    ->viewDrinks()    ->putCoin( 2 )    ->putCoin( 1 )    ->buyDrink( 'Espresso' )    ->getCoins()    ->viewAmount()    ->getCoins();
 
-$vendingMachine->display()->all();
+$vendingMachine->display()->allNotifications();
 echo '<br>';
 $vendingMachine->display()->printErrors();

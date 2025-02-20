@@ -2,33 +2,56 @@
 namespace Src\Module;
 
 use Src\Module\Notification;
+use App\Singleton;
 
 /**
  * Singleton to manage notifications throughout the project
  */
-final class NotificationManager
+final class NotificationManager extends Singleton
 {
-    private static $instances = [];
     private array $notifications = [];
 
-    private function __construct() {}
+    public function setNotification(string $message, string $type = 'notification'):bool {
+        $notification = new Notification($message, $type);
 
-    private function __clone() {}
+        if(!($notification instanceof Notification)) {
+            return false;
+        }
 
-    public function __wakeup()
-    {
-        throw new \Exception("Cannot unserialize singleton");
+        $this->notifications[] = $notification;
+        return true;
     }
 
-    /**
-     * The method you use to get the Singleton's instance.
-     */
-    public static function getInstance()
-    {
-        $subclass = static::class;
-        if (!isset(self::$instances[$subclass])) {
-            self::$instances[$subclass] = new static();
+    public function printAll():bool {
+        if(empty($this->notifications)) {
+            return false;
         }
-        return self::$instances[$subclass];
+
+        foreach($this->notifications as $notification) {
+            $notification->printFormatted();
+        }
+
+        return true;
+    }
+
+    // Not a fan of tying up representation logic into the notification modal, but its a simple app so Ill pardon myself.
+    public function printErrors(int $count = 3):bool {
+        if(empty(($errors = $this->getErrors()))) {
+            return false;
+        }
+
+        echo "<div style='font-weight:bold;'>Last ".$count." errors</div>";
+
+        for($i = 0; $i < $count; $i++) {
+            $errors[$i]->printFormatted();
+        }
+
+        return true;
+    }
+
+    private function getErrors():array {
+        return array_values(array_filter($this->notifications, function($notif) {
+            return $notif->type === 'error';
+        }));
     }
 }
