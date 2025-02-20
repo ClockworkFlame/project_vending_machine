@@ -4,11 +4,14 @@ namespace App\Module;
 
 use App\Interface\CurrencyPositions;
 
-final class Currency implements CurrencyPositions
+final class Currency
 {
-    public private(set) string $sign;
-    public private(set) string $space;
-    public private(set) string $position;
+    const CURRENCY_POSITION_BEFORE = 0;
+    const CURRENCY_POSITION_AFTER = 1;
+
+    public private(set) readonly string $sign;
+    public private(set) readonly string $space;
+    public private(set) readonly string $position;
 
     public function __construct(array $currency_data){
         [
@@ -19,6 +22,6 @@ final class Currency implements CurrencyPositions
     }
 
     public function formatPrice(float $price):string {
-        return $this->position === 1 ? $this->space . $this->sign . sprintf("%0.2f",$price) : sprintf("%0.2f",$price). $this->sign . $this->space; // 1=after 0=before
+        return $this->position === self::CURRENCY_POSITION_AFTER ? $this->space . $this->sign . sprintf("%0.2f",$price) : sprintf("%0.2f",$price). $this->sign . $this->space; // 1=after 0=before
     }
 }
