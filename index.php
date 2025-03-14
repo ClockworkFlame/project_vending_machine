@@ -1,8 +1,8 @@
 <?php
 
 use Src\Controller\VendingMachine;
-use Src\Module\Currency;
 use Src\Module\Display;
+use Src\Enum\Currency;
 
 // Setup autoloader for namespaces
 spl_autoload_register(function ($class) {
@@ -13,7 +13,7 @@ spl_autoload_register(function ($class) {
 $vendingMachine = new VendingMachine([
     'sign' => 'лв.',
     'space' => '',
-    'position' => Currency::CURRENCY_POSITION_AFTER,
+    'position' => Currency::CURRENCY_POSITION_AFTER->value,
 ],
 [
     'Milk' => 0.50,
@@ -39,6 +39,3 @@ $vendingMachine
 Display::printNotifications();
 echo '<br>';
 Display::printErrors();
-
-// $vendingMachine->display()->printErrors();
-// $vendingMachine->display()->allNotifications();
