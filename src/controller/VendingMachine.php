@@ -17,7 +17,7 @@ final class VendingMachine
     public function __construct(array $currency_data,array $drinks_data, array $coins_data){
         $this->currency = new Currency($currency_data['sign'], $currency_data['space'], $currency_data['position']);
         $this->setting = new Setting($drinks_data, $coins_data);
-        $this->wallet = new Wallet($this->currency, $this->setting); //Not a fan of passing down classes like this, but without a centralised DB I struggle to see another choice.
+        $this->wallet = new Wallet($this->currency, $this->setting); //Not a fan of high coupling like this, but idk.
     }
 
     public function viewDrinks():self {

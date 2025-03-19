@@ -3,12 +3,14 @@ namespace Src\Module;
 
 use \Src\Module\Currency;
 use \Src\Module\Setting;
+use \Src\Interface\PricingFormatable;
+use \Src\Interface\CoinFormatable;
 
 final class Wallet
 {
     public private(set) float $balance = 0.0;
 
-    public function __construct(private Currency $currency, private Setting $setting){
+    public function __construct(private PricingFormatable $currency, private CoinFormatable $setting){
     }
 
     public function insertCoin(float $amount):void {

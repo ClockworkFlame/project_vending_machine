@@ -4,11 +4,16 @@ use Src\Controller\VendingMachine;
 use Src\Module\Display;
 use Src\Enum\Currency;
 
-// Setup autoloader for namespaces
 spl_autoload_register(function ($class) {
     $parts = explode('\\', $class);
     include implode('/', $parts) . '.php';
 });
+
+
+/**
+ * INPUT SETTINGS/ACTIONS BENEATH
+ */
+
 
 $vendingMachine = new VendingMachine([
     'sign' => 'лв.',

@@ -1,10 +1,10 @@
 <?php
-
 namespace Src\Module;
 
 use \Src\Enum\Currency as CurrencyCase;
+use \Src\Interface\PricingFormatable;
 
-final class Currency
+final class Currency implements PricingFormatable
 {
     public function __construct(
         public readonly string $sign,

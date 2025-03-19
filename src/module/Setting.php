@@ -1,7 +1,9 @@
 <?php
 namespace Src\Module;
 
-final class Setting
+use \Src\Interface\CoinFormatable;
+
+final class Setting implements CoinFormatable
 {   
     public private(set) array $drinks;
     public private(set) array $accepted_coins = [];
