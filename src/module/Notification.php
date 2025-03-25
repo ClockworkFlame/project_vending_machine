@@ -6,7 +6,7 @@ final class Notification
     public function __construct(public readonly string $message, public readonly string $type) {}
 
     public function print():true {
-        echo $message;
+        echo $this->message;
 
         return true;
     }

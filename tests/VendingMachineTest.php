@@ -23,15 +23,12 @@ final class VendingMachineTest extends TestCase
             'balance' => 0.00,
         ];
 
-        $vM = new VendingMachine($currency_setting, $drinks_setting, $setting_setting);
-
-        // $this->assertSame('John', $user->name);
-        // $this->assertSame(18, $user->age);
-        // $this->assertEmpty($user->favorite_movies);
+        $vm = new VendingMachine($currency_setting, $drinks_setting, $setting_setting);
 
         $this->assertInstanceOf(
             VendingMachine::class,
-            $vM
+            $vm
         );
     }
 }
+

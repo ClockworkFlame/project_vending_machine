@@ -69,7 +69,7 @@ final class VendingMachine
     
             $coins_string_formatted = [];
             foreach($coins_counted as $coin => $count) {
-                $coins_string_formatted[] .= $count . 'x' . $coin;
+                $coins_string_formatted[] = $count . 'x' . $coin;
             }
     
             $change_formatted = array_map(function($coin) {
